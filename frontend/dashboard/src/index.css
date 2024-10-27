@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    background-color: pink;
+}
+
+
+/* .custom-svg {
+    margin-top: 100px;
+}
+
+.menu-name {
+    margin-top: 100px;
+} */
