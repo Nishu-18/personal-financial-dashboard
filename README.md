@@ -1,6 +1,6 @@
 # Personal Dashboard
 
-![Project Logo](path_to_your_logo_image) <!-- Replace with your project's logo/image -->
+
 
 
 ## Introduction
