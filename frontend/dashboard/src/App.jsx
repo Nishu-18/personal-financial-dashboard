@@ -22,6 +22,7 @@ import { ExpensePage } from './Pages/ExpensePage'
 import { Signup } from './Pages/Signup'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Signin } from './Pages/Signin'
+import { Transactions } from './Pages/Transaction'
 
 
 
@@ -35,6 +36,7 @@ function App() {
         <Route path='/incomes' element={<IncomePage/>}></Route>
         <Route path='/expenses' element={<ExpensePage/>}></Route>
         <Route path='/signin' element={<Signin/>}></Route>
+        <Route path='/transactions' element={<Transactions/>}></Route>
       </Routes>
     </BrowserRouter>
     

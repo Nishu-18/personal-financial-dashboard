@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "bson": "^6.9.0",
     "chart.js": "^4.4.5",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",

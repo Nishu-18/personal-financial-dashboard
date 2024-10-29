@@ -6,8 +6,8 @@ export function SignOut({image,menuName}){
     
     return <div className="flex ml-2 p-2 mt-3">
          {image}
-       <a href="/signup" className="ml-5" onClick={function(){
-            Navigate("/signup")
+       <a href="/signin" className="ml-5" onClick={function(){
+           
             localStorage.removeItem("token")
             localStorage.removeItem('name')
        }}>Sign Out</a>
