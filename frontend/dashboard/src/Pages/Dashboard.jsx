@@ -51,6 +51,9 @@ export function Dashboard(){
   
       })
       setIncomeTrans(modifiedIncome)
+      
+      
+      
         let totalAmount=0
         let min = Infinity;
         let max = -Infinity;
@@ -235,7 +238,7 @@ export function Dashboard(){
            <div className='grid grid-cols-12'>
              <div className='col-span-7 grid grid-cols-2'>
                <div className='col-span-2'>
-                {/* <ChartData  incomeAmount={incomeChart} expenseAmount={expenseChart}></ChartData> */}
+                <ChartData  incomeAmount={incomeTrans} expenseAmount={expenseTrans}></ChartData>
                </div>
    
                <Money label={"Total Money"} money={amount} ></Money>

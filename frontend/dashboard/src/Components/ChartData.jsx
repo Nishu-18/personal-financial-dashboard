@@ -6,36 +6,54 @@ import { Chart as ChartJS,
  } from "chart.js";
  ChartJS.register(LineElement,CategoryScale,LinearScale,PointElement,plugins,scales)
 export function ChartData({incomeAmount,expenseAmount}){
-    const dateLabel = Array.from(new Set([...incomeAmount.date, ...expenseAmount.date])).sort();
-    console.log(incomeAmount.date);
+  
+const dates = [...new Set([...incomeAmount.map(d => d.date), ...expenseAmount.map(d => d.date)])].sort();
+const updatedDates=[]
+for(let i=0;i<dates.length;i++){
+    const newDate=new Date(dates[i])
+        const month=newDate.getMonth()+1
+        const date=newDate.getDate()+"/"+month+"/"+newDate.getFullYear()
+
+    updatedDates.push(date)
+}
+
+
+
+const incomeAmounts = dates.map(date => {
+  const income = incomeAmount.find(d => d.date === date);
+  return income ? income.amount : 0;
+});
+
+const expenseAmounts = dates.map(date => {
+  const expense = expenseAmount.find(d => d.date === date);
+  return expense ? expense.amount : 0;
+});
+
+
+console.log(updatedDates);
+
+
+
     
-
-  // Map income and expense data to the combined date labels
-//   const incomeData = dateLabel.map((date) => {
-//     const index = incomeAmount.date.indexOf(date);
-//     return index !== -1 ? incomeAmount.income[index] : 0;
-//   });
-
-//   const expenseData = dateLabel.map((date) => {
-//     const index = expenseAmount.date.indexOf(date);
-//     return index !== -1 ? expenseAmount.expense[index] : 0;
-//   });
+    
+    
     const data={
-        labels:incomeAmount.date,
+        labels:updatedDates,
         datasets:[{
             label:"Income",
-            data:[],
+            data:incomeAmounts,
             tension:0.4,
             backgroundColor:'red'
 
         },
         {
             label:"Expense",
-            data:[],
+            data:expenseAmounts,
             tension:0.4,
             backgroundColor:'purple'
 
-        }]
+        }
+        ]
     }
     const options={
         plugins:{
