@@ -12,7 +12,7 @@ app.use("/api/v1", mainRouter)
 
 
 
-app.listen(3000, function() {
+app.listen(process.env.PORT | 3000, function() {
     console.log("Running...");
 
 })

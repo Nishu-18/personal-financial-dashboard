@@ -1,5 +1,8 @@
 const { default: mongoose } = require("mongoose")
-mongoose.connect('mongodb://localhost:27017/finance')
+
+require('dotenv').config()
+mongoose.connect(process.env.DB_URI)
+
 
 const userSchema = new mongoose.Schema({ "name": String, "username": String, "password": String })
 const User = new mongoose.model('user', userSchema)

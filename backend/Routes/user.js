@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken')
-const { User, Income } = require('../db')
-const secret = require('../config')
+const { User, Income } = require('../db');
+const { config } = require('dotenv');
+require('dotenv').config()
+
 router.get("/", function(req, res) {
     res.send("hello")
 })
@@ -16,7 +18,7 @@ router.post('/signup', async function(req, res) {
     }
     const user = await User.create({ name, username, password })
     const userID = user._id
-    const token = jwt.sign({ "ID": userID }, secret)
+    const token = jwt.sign({ "ID": userID }, process.env.SECRET_KEY)
     return res.json({
         msg: "user added",
         token: token
@@ -29,7 +31,7 @@ router.post('/signin', async function(req, res) {
 
     if (userFound) {
         const userID = userFound._id
-        const token = jwt.sign({ "ID": userID }, secret)
+        const token = jwt.sign({ "ID": userID }, process.env.SECRET_KEY)
         const name = userFound.name
 
 
