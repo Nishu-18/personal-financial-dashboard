@@ -1,9 +1,9 @@
 import { useState,useEffect } from "react"
-import { BottomWarning } from "../components/BottomWarning.jsx"
-import { Button } from "../components/Button.jsx"
-import { Heading } from "../components/Heading.jsx"
-import { InputBox } from "../components/InputBox.jsx"
-import { SubHeading } from "../components/SubHeading.jsx"
+import { BottomWarning } from "../Components/BottomWarning"
+import { Button } from "../Components/Button"
+import { Heading } from "../Components/Heading"
+import { InputBox } from "../Components/InputBox"
+import { SubHeading } from "../Components/SubHeading"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 
@@ -32,7 +32,7 @@ export const Signup = () => {
         }} placeholder="123456" label={"Password"} />
         <div className="pt-4">
            <Button onClick={async () => {
-            const response = await axios.post("https://test-dv10.onrender.com/api/v1/user/signup", {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
               username,
               name,
               password
