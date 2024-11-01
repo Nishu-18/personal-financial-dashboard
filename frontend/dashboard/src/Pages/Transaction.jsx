@@ -1,18 +1,12 @@
 import { Profile } from '../Components/Profile'
 import { Menu } from '../Components/Menu'
 import { SignOut } from '../Components/SignOut'
-import styled from "styled-components";
-import { Money } from '../Components/Money'
-import { Balance } from '../Components/Balance'
+
 import '../App.css'
   
 import { Expense } from '../Components/Expense'
 import { Income } from '../Components/Income'
-import { Label } from '../Components/Label'
-import { MinMax } from '../Components/MinMax'
-import { ChartData } from '../Components/ChartData'
-import { TotalIncome } from '../Components/Totalincome';
-import { IncomeDetail } from '../Components/IncomeDetails';
+
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
