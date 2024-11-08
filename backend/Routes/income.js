@@ -7,7 +7,7 @@ const router = express.Router();
 router.post("/addIncome", authMiddleware, async function(req, res) {
     const user_ID = req.ID
     const { title, type, amount, date } = req.body
-        // console.log(user_ID);
+
 
     const newIncome = await Income.create({ userID: user_ID, title, type, amount, date })
     return res.json({

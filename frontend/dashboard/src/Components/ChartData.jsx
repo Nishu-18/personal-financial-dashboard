@@ -43,14 +43,14 @@ console.log(updatedDates);
             label:"Income",
             data:incomeAmounts,
             tension:0.4,
-            backgroundColor:'red'
+            backgroundColor:'green'
 
         },
         {
             label:"Expense",
             data:expenseAmounts,
             tension:0.4,
-            backgroundColor:'purple'
+            backgroundColor:'red'
 
         }
         ]

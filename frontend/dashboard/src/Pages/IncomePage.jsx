@@ -35,7 +35,7 @@ export function IncomePage(){
   useEffect(() => {
     const fetchIncome = async () => {
       try {
-        const response = await axios.get('https://test-dv10.onrender.com/api/v1/income/getIncome',{
+        const response = await axios.get('http://localhost:3000/api/v1/income/getIncome',{
           headers:{Authorization:`Bearer ${token}`}
         });
         let totalAmount=0
@@ -59,7 +59,7 @@ export function IncomePage(){
   useEffect(() => {
     const fetchIncome = async () => {
       try {
-        const response = await axios.get('https://test-dv10.onrender.com/api/v1/income/getIncome',{
+        const response = await axios.get('http://localhost:3000/api/v1/income/getIncome',{
           headers:{Authorization:`Bearer ${token}`}
         });
         const incomes=response.data.users
@@ -150,7 +150,7 @@ export function IncomePage(){
                   setAbout(e.target.value)
                 }} name="" id="" placeholder='Add A refernce'  className='rounded-sm p-2 mt-5' rows={5} cols={22}></textarea>
                 <button onClick={async function(){
-                    await axios.post("https://test-dv10.onrender.com/api/v1/income/addIncome",{
+                    await axios.post("http://localhost:3000/api/v1/income/addIncome",{
                       title,type:about,amount,date
                     },{
                       headers:{Authorization:`Bearer ${token}`}
@@ -183,7 +183,7 @@ export function IncomePage(){
                     return <IncomeDetail func={async function(e){
                       const id=e.currentTarget.dataset.id
                       
-                      await axios.delete(`https://test-dv10.onrender.com/api/v1/income/deleteIncome/${id}`,{
+                      await axios.delete(`http://localhost:3000/api/v1/income/deleteIncome/${id}`,{
                         headers:{Authorization:`Bearer ${token}`}
                       })
                       window.location.reload()

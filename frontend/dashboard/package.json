@@ -11,6 +11,7 @@
         "serve": "serve -s dist"
     },
     "dependencies": {
+        "@mailchimp/mailchimp_marketing": "^3.0.80",
         "axios": "^1.7.7",
         "bson": "^6.9.0",
         "chart.js": "^4.4.5",

@@ -1,6 +1,8 @@
 backend/node_modules
-backend/config.js
+backend/.env
 
 
 frontend/node_modules
+
+
 

@@ -11,6 +11,8 @@ import { Signup } from './Pages/Signup'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Signin } from './Pages/Signin'
 import { Transactions } from './Pages/Transaction'
+import { ProtectedRoute } from './Components/ProtectedRoute'
+import { Budget } from './Pages/Budget'
 
 
 
@@ -20,11 +22,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route  path='/signup' element={<Signup/>}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
-        <Route path='/incomes' element={<IncomePage/>}></Route>
-        <Route path='/expenses' element={<ExpensePage/>}></Route>
+        <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}></Route>
+        <Route path='/incomes' element={<ProtectedRoute><IncomePage/></ProtectedRoute>}></Route>
+        <Route path='/expenses' element={<ProtectedRoute><ExpensePage/></ProtectedRoute>}></Route>
         <Route path='/signin' element={<Signin/>}></Route>
-        <Route path='/transactions' element={<Transactions/>}></Route>
+        <Route path='/transactions' element={<ProtectedRoute><Transactions/></ProtectedRoute>}></Route>
+        <Route path='/budget' element={<Budget/>}></Route>
       </Routes>
     </BrowserRouter>
     

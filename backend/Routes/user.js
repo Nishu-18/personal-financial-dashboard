@@ -3,10 +3,19 @@ const router = express.Router();
 const jwt = require('jsonwebtoken')
 const { User, Income } = require('../db');
 const { config } = require('dotenv');
+const authMiddleware = require('../middleware');
+const { default: axios } = require('axios');
+const nodemailer = require('nodemailer')
 require('dotenv').config()
 
 router.get("/", function(req, res) {
     res.send("hello")
+})
+router.get("/getDetails", authMiddleware, async function(req, res) {
+    const userDetails = await User.find({ _id: req.ID })
+    res.json({
+        userDetails: userDetails
+    })
 })
 router.post('/signup', async function(req, res) {
     const { name, username, password } = req.body
@@ -24,6 +33,14 @@ router.post('/signup', async function(req, res) {
         token: token
     })
 
+})
+router.post('/setBudget', authMiddleware, async function(req, res) {
+    const budget = req.body.budget;
+    const userID = req.ID;
+    const userFound = await User.findByIdAndUpdate(userID, { $set: { budget: budget } }, { new: true })
+    res.json({
+        userDetails: userFound
+    })
 })
 router.post('/signin', async function(req, res) {
     const { username, password } = req.body
@@ -43,6 +60,35 @@ router.post('/signin', async function(req, res) {
     return res.status(401).json({
         msg: "Error while logging in"
     })
+
+})
+router.post('/subscribe', async function(req, res) {
+    const { email, subject, text } = req.body
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+
+
+
+    try {
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: subject,
+            text: text,
+        });
+
+        res.json({ success: true, message: 'Email sent successfully!' });
+
+    } catch (err) {
+        res.status(500).json({
+            msg: "Email failed to send."
+        })
+    }
 
 })
 

@@ -37,7 +37,7 @@ export function Dashboard(){
   useEffect(() => {
     const fetchIncome = async () => {
       try {
-        const response = await axios.get('https://test-dv10.onrender.com/api/v1/income/getIncome',{
+        const response = await axios.get('http://localhost:3000/api/v1/income/getIncome',{
           headers:{Authorization:`Bearer ${token}`}
         });
         const modifiedIncome= response.data.users.map(function(income){
@@ -95,7 +95,7 @@ export function Dashboard(){
          
 
 
-        const res = await axios.get('https://test-dv10.onrender.com/api/v1/expense/getExpense',{
+        const res = await axios.get('http://localhost:3000/api/v1/expense/getExpense',{
           headers:{Authorization:`Bearer ${token}`}
         });
 

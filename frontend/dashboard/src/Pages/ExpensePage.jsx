@@ -9,6 +9,7 @@ import { IncomeDetail } from '../Components/IncomeDetails';
 import { TotalExpense } from '../Components/TotalExpense';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import mailchimp from '@mailchimp/mailchimp_marketing'
 
 
 export function ExpensePage(){
@@ -19,9 +20,13 @@ export function ExpensePage(){
   const[about,setAbout]=useState("")
   const [transactionID,setTransID]=useState(0)
   const [newId,setNewID]=useState(null)
+  const[email,setEmail]=useState("")
 
   const token=localStorage.getItem("token")
   const[Incomes,setIncomes]=useState([])
+  const [safeLimit,setLimit]=useState(0)
+  const [currAmount,setCurrAmount]=useState(0)
+
   useEffect(() => {
     const lastExpenseID = localStorage.getItem("lastExpenseID");
     if (lastExpenseID) {
@@ -31,9 +36,66 @@ export function ExpensePage(){
   useEffect(() => {
     const fetchIncome = async () => {
       try {
-        const response = await axios.get('https://test-dv10.onrender.com/api/v1/expense/getExpense',{
+        const response = await axios.get('http://localhost:3000/api/v1/expense/getExpense',{
           headers:{Authorization:`Bearer ${token}`}
         });
+        const incomes=response.data.users
+        setIncomes(incomes)
+        const res=await axios.get('http://localhost:3000/api/v1/user/getDetails',{
+          headers:{Authorization:`Bearer ${token}`}
+        })
+        setEmail(res.data.userDetails[0].username)
+
+        
+        setLimit(Math.floor(res.data.userDetails[0].budget*.8));
+        const expenseDates=[];
+       response.data.users.map(function(item){
+        expenseDates.push(item.date)
+        //console.log(expenseDates);
+      })
+
+      const now=new Date();
+      const currentMonth = now.getMonth()+1;
+      const currentYear = now.getFullYear();
+      const currentData=response.data.users.filter(function(item){
+        const date=new Date(item.date)
+        const itemMonth=date.getMonth()+1
+        
+        
+        return itemMonth===currentMonth && date.getFullYear()===currentYear
+      })
+      let currentAmount=0
+      currentData.map(function(item){
+        currentAmount+=item.amount
+      })
+      setCurrAmount(currentAmount)
+      
+      
+      
+      
+      const limit=Math.floor(res.data.userDetails[0].budget*.8)
+      if(currentAmount>=limit){
+        console.log(currentAmount);
+        console.log(limit);
+        
+        
+        async function sendMail(){
+          await axios.post("http://localhost:3000/api/v1/user/subscribe",{email:email,subject:"Expenses near budget limit",text:"Please spend carefully"})
+          alert("Your budget is 80% or more  completed,Please spend caarefully.")
+        }
+        sendMail()
+        
+        
+
+      }
+      
+      
+      
+      
+      
+      
+      
+      
         let totalAmount=0
         
         for(let i=0;i<response.data.users.length; i++){
@@ -46,27 +108,33 @@ export function ExpensePage(){
     };
   
     fetchIncome();
+    
   }, []);
 
 
-  useEffect(() => {
-    const fetchIncome = async () => {
-      try {
-        const response = await axios.get('https://test-dv10.onrender.com/api/v1/expense/getExpense',{
-          headers:{Authorization:`Bearer ${token}`}
-        });
-        const incomes=response.data.users
-       setIncomes(incomes)
+//   useEffect(() => {
+//     const fetchIncome = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:3000/api/v1/expense/getExpense',{
+//           headers:{Authorization:`Bearer ${token}`}
+//         });
+        
+//        const expenseDates=[];
+//        response.data.users.map(function(item){
+//         expenseDates.push(item.date)
+//         console.log(expenseDates);
+        
+//        })
        
        
        
         
-      } catch (error) { 
-        console.error("Error fetching income:", error);
-      }
+//       } catch (error) { 
+//         console.error("Error fetching income:", error);
+//       }
       
-  }; fetchIncome();},[]
-);  
+//   }; fetchIncome();},[]
+// );  
     const name=localStorage.getItem('name')
     return (<div className='grid grid-cols-12 '>
         <div className='bg-red-100 rounded-xl p-5 m-5 col-span-3 h-70'>
@@ -140,7 +208,7 @@ export function ExpensePage(){
                 }} name="" id="" placeholder='Add A refernce'  className='rounded-sm p-2 mt-5' rows={5} cols={22}></textarea>
 
                 <button onClick={async function(){
-                 const res=   await axios.post("https://test-dv10.onrender.com/api/v1/expense/addExpense",{
+                 const res=   await axios.post("http://localhost:3000/api/v1/expense/addExpense",{
                       title,type:about,amount,date
                     },{
                       headers:{Authorization:`Bearer ${token}`}
@@ -172,7 +240,7 @@ export function ExpensePage(){
                       const id=e.currentTarget.dataset.id
                       console.log(id);  
                       
-                      await axios.delete(`https://test-dv10.onrender.com/api/v1/expense/deleteExpense/${id}`,{
+                      await axios.delete(`http://localhost:3000/api/v1/expense/deleteExpense/${id}`,{
                         headers:{Authorization:`Bearer ${token}`}
                       })
                       window.location.reload()
