@@ -91,5 +91,17 @@ router.post('/subscribe', async function(req, res) {
     }
 
 })
+router.post('/addGoal', authMiddleware, async function(req, res) {
+
+    const userID = req.ID;
+    const Upadteduser = await User.findByIdAndUpdate(userID, { $push: { goals: req.body } }, { new: true })
+    return res.json({
+        msg: "Goal added",
+        updatedUser: Upadteduser
+    })
+})
+
+
+
 
 module.exports = router

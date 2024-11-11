@@ -13,6 +13,7 @@ import { Signin } from './Pages/Signin'
 import { Transactions } from './Pages/Transaction'
 import { ProtectedRoute } from './Components/ProtectedRoute'
 import { Budget } from './Pages/Budget'
+import { Goal } from './Pages/Goal'
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/signin' element={<Signin/>}></Route>
         <Route path='/transactions' element={<ProtectedRoute><Transactions/></ProtectedRoute>}></Route>
         <Route path='/budget' element={<Budget/>}></Route>
+        <Route path='/goal' element={<Goal/>}></Route>
       </Routes>
     </BrowserRouter>
     
