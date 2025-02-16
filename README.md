@@ -1,5 +1,9 @@
 # Personal Financial Dashboard
 
+![Landing Page]
+![image](https://github.com/user-attachments/assets/a0bd4097-9335-4875-98d6-d3430f7a7f35)
+
+
 This is a personal financial dashboard project to help users track their income, expenses, savings goals, and budget usage. Users can set multiple savings goals, monitor their budget, receive alerts when spending nears the budget limit, and track their savings progress.
 
 ## Features
@@ -17,12 +21,7 @@ This is a personal financial dashboard project to help users track their income,
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Authentication**: JWT-based authentication
-- **Deployment**: Render
 - **Environment Management**: dotenv
 
-## Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Nishu-18/personal-financial-dashboard.git
-   cd personal-financial-dashboard
+
