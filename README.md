@@ -1,6 +1,5 @@
 # Personal Financial Dashboard
 
-![Landing Page]
 ![image](https://github.com/user-attachments/assets/a0bd4097-9335-4875-98d6-d3430f7a7f35)
 
 
