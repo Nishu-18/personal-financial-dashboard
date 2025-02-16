@@ -1,7 +1,9 @@
 const { default: mongoose } = require("mongoose");
-const { number } = require("zod");
+
 
 require('dotenv').config()
+
+
 mongoose.connect(process.env.DB_URI)
 
 
